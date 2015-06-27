@@ -1,6 +1,6 @@
 ﻿namespace ROI_Hist_test
 {
-    partial class Form1
+    partial class メイン画面
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -36,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button_csv出力 = new System.Windows.Forms.Button();
+            this.label_平均と分散 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@
             // 
             // button_ROI
             // 
-            this.button_ROI.Location = new System.Drawing.Point(4, 134);
+            this.button_ROI.Location = new System.Drawing.Point(4, 112);
             this.button_ROI.Name = "button_ROI";
             this.button_ROI.Size = new System.Drawing.Size(75, 23);
             this.button_ROI.TabIndex = 2;
@@ -69,7 +71,7 @@
             // 
             // textBox_roi1
             // 
-            this.textBox_roi1.Location = new System.Drawing.Point(29, 84);
+            this.textBox_roi1.Location = new System.Drawing.Point(29, 45);
             this.textBox_roi1.Name = "textBox_roi1";
             this.textBox_roi1.Size = new System.Drawing.Size(50, 19);
             this.textBox_roi1.TabIndex = 3;
@@ -77,7 +79,7 @@
             // 
             // textBox_roi2
             // 
-            this.textBox_roi2.Location = new System.Drawing.Point(29, 109);
+            this.textBox_roi2.Location = new System.Drawing.Point(29, 70);
             this.textBox_roi2.Name = "textBox_roi2";
             this.textBox_roi2.Size = new System.Drawing.Size(50, 19);
             this.textBox_roi2.TabIndex = 4;
@@ -86,7 +88,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 69);
+            this.label1.Location = new System.Drawing.Point(2, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 12);
             this.label1.TabIndex = 5;
@@ -95,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 87);
+            this.label2.Location = new System.Drawing.Point(6, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 12);
             this.label2.TabIndex = 6;
@@ -104,18 +106,39 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 112);
+            this.label3.Location = new System.Drawing.Point(6, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 7;
             this.label3.Text = "p2";
             // 
-            // Form1
+            // button_csv出力
+            // 
+            this.button_csv出力.Location = new System.Drawing.Point(4, 141);
+            this.button_csv出力.Name = "button_csv出力";
+            this.button_csv出力.Size = new System.Drawing.Size(75, 23);
+            this.button_csv出力.TabIndex = 8;
+            this.button_csv出力.Text = "csv出力";
+            this.button_csv出力.UseVisualStyleBackColor = true;
+            this.button_csv出力.Click += new System.EventHandler(this.OnClick_csv出力);
+            // 
+            // label_平均と分散
+            // 
+            this.label_平均と分散.AutoSize = true;
+            this.label_平均と分散.Location = new System.Drawing.Point(6, 97);
+            this.label_平均と分散.Name = "label_平均と分散";
+            this.label_平均と分散.Size = new System.Drawing.Size(55, 12);
+            this.label_平均と分散.TabIndex = 9;
+            this.label_平均と分散.Text = "平均,分散";
+            // 
+            // メイン画面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(507, 341);
+            this.Controls.Add(this.label_平均と分散);
+            this.Controls.Add(this.button_csv出力);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -124,7 +147,7 @@
             this.Controls.Add(this.button_ROI);
             this.Controls.Add(this.button_開く);
             this.Controls.Add(this.pictureBoxIpl1);
-            this.Name = "Form1";
+            this.Name = "メイン画面";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).EndInit();
             this.ResumeLayout(false);
@@ -142,6 +165,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button_csv出力;
+        private System.Windows.Forms.Label label_平均と分散;
     }
 }
 
