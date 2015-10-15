@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pictureBoxIpl1 = new OpenCvSharp.UserInterface.PictureBoxIpl();
-            this.button_開く = new System.Windows.Forms.Button();
+            this.button_検査対象 = new System.Windows.Forms.Button();
             this.button_ROI = new System.Windows.Forms.Button();
             this.textBox_roi1 = new System.Windows.Forms.TextBox();
             this.textBox_roi2 = new System.Windows.Forms.TextBox();
@@ -37,7 +37,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button_csv出力 = new System.Windows.Forms.Button();
-            this.label_平均と分散 = new System.Windows.Forms.Label();
+            this.label_roi_info = new System.Windows.Forms.Label();
+            this.button_マスク画像 = new System.Windows.Forms.Button();
+            this.checkBox_black = new System.Windows.Forms.CheckBox();
+            this.checkBox_all = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIpl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,22 +49,23 @@
             this.pictureBoxIpl1.Location = new System.Drawing.Point(85, 4);
             this.pictureBoxIpl1.Name = "pictureBoxIpl1";
             this.pictureBoxIpl1.Size = new System.Drawing.Size(410, 325);
+            this.pictureBoxIpl1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxIpl1.TabIndex = 0;
             this.pictureBoxIpl1.TabStop = false;
             // 
-            // button_開く
+            // button_検査対象
             // 
-            this.button_開く.Location = new System.Drawing.Point(4, 4);
-            this.button_開く.Name = "button_開く";
-            this.button_開く.Size = new System.Drawing.Size(75, 23);
-            this.button_開く.TabIndex = 1;
-            this.button_開く.Text = "開く";
-            this.button_開く.UseVisualStyleBackColor = true;
-            this.button_開く.Click += new System.EventHandler(this.OnClick開く);
+            this.button_検査対象.Location = new System.Drawing.Point(4, 4);
+            this.button_検査対象.Name = "button_検査対象";
+            this.button_検査対象.Size = new System.Drawing.Size(75, 23);
+            this.button_検査対象.TabIndex = 1;
+            this.button_検査対象.Text = "検査対象";
+            this.button_検査対象.UseVisualStyleBackColor = true;
+            this.button_検査対象.Click += new System.EventHandler(this.OnClick_検査対象);
             // 
             // button_ROI
             // 
-            this.button_ROI.Location = new System.Drawing.Point(4, 112);
+            this.button_ROI.Location = new System.Drawing.Point(4, 259);
             this.button_ROI.Name = "button_ROI";
             this.button_ROI.Size = new System.Drawing.Size(75, 23);
             this.button_ROI.TabIndex = 2;
@@ -71,7 +75,7 @@
             // 
             // textBox_roi1
             // 
-            this.textBox_roi1.Location = new System.Drawing.Point(29, 45);
+            this.textBox_roi1.Location = new System.Drawing.Point(29, 133);
             this.textBox_roi1.Name = "textBox_roi1";
             this.textBox_roi1.Size = new System.Drawing.Size(50, 19);
             this.textBox_roi1.TabIndex = 3;
@@ -79,7 +83,7 @@
             // 
             // textBox_roi2
             // 
-            this.textBox_roi2.Location = new System.Drawing.Point(29, 70);
+            this.textBox_roi2.Location = new System.Drawing.Point(29, 158);
             this.textBox_roi2.Name = "textBox_roi2";
             this.textBox_roi2.Size = new System.Drawing.Size(50, 19);
             this.textBox_roi2.TabIndex = 4;
@@ -88,7 +92,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 30);
+            this.label1.Location = new System.Drawing.Point(2, 118);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 12);
             this.label1.TabIndex = 5;
@@ -97,7 +101,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
+            this.label2.Location = new System.Drawing.Point(6, 136);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 12);
             this.label2.TabIndex = 6;
@@ -106,7 +110,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 73);
+            this.label3.Location = new System.Drawing.Point(6, 161);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 12);
             this.label3.TabIndex = 7;
@@ -114,7 +118,7 @@
             // 
             // button_csv出力
             // 
-            this.button_csv出力.Location = new System.Drawing.Point(4, 141);
+            this.button_csv出力.Location = new System.Drawing.Point(4, 288);
             this.button_csv出力.Name = "button_csv出力";
             this.button_csv出力.Size = new System.Drawing.Size(75, 23);
             this.button_csv出力.TabIndex = 8;
@@ -122,14 +126,44 @@
             this.button_csv出力.UseVisualStyleBackColor = true;
             this.button_csv出力.Click += new System.EventHandler(this.OnClick_csv出力);
             // 
-            // label_平均と分散
+            // label_roi_info
             // 
-            this.label_平均と分散.AutoSize = true;
-            this.label_平均と分散.Location = new System.Drawing.Point(6, 97);
-            this.label_平均と分散.Name = "label_平均と分散";
-            this.label_平均と分散.Size = new System.Drawing.Size(55, 12);
-            this.label_平均と分散.TabIndex = 9;
-            this.label_平均と分散.Text = "平均,分散";
+            this.label_roi_info.AutoSize = true;
+            this.label_roi_info.Location = new System.Drawing.Point(6, 185);
+            this.label_roi_info.Name = "label_roi_info";
+            this.label_roi_info.Size = new System.Drawing.Size(48, 12);
+            this.label_roi_info.TabIndex = 9;
+            this.label_roi_info.Text = "ROI情報";
+            // 
+            // button_マスク画像
+            // 
+            this.button_マスク画像.Location = new System.Drawing.Point(4, 33);
+            this.button_マスク画像.Name = "button_マスク画像";
+            this.button_マスク画像.Size = new System.Drawing.Size(75, 23);
+            this.button_マスク画像.TabIndex = 10;
+            this.button_マスク画像.Text = "マスク画像";
+            this.button_マスク画像.UseVisualStyleBackColor = true;
+            this.button_マスク画像.Click += new System.EventHandler(this.OnClick_マスク画像);
+            // 
+            // checkBox_black
+            // 
+            this.checkBox_black.AutoSize = true;
+            this.checkBox_black.Location = new System.Drawing.Point(4, 63);
+            this.checkBox_black.Name = "checkBox_black";
+            this.checkBox_black.Size = new System.Drawing.Size(81, 16);
+            this.checkBox_black.TabIndex = 11;
+            this.checkBox_black.Text = "黒領域のみ";
+            this.checkBox_black.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_all
+            // 
+            this.checkBox_all.AutoSize = true;
+            this.checkBox_all.Location = new System.Drawing.Point(4, 86);
+            this.checkBox_all.Name = "checkBox_all";
+            this.checkBox_all.Size = new System.Drawing.Size(60, 16);
+            this.checkBox_all.TabIndex = 12;
+            this.checkBox_all.Text = "全領域";
+            this.checkBox_all.UseVisualStyleBackColor = true;
             // 
             // メイン画面
             // 
@@ -137,7 +171,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(507, 341);
-            this.Controls.Add(this.label_平均と分散);
+            this.Controls.Add(this.checkBox_all);
+            this.Controls.Add(this.checkBox_black);
+            this.Controls.Add(this.button_マスク画像);
+            this.Controls.Add(this.label_roi_info);
             this.Controls.Add(this.button_csv出力);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -145,7 +182,7 @@
             this.Controls.Add(this.textBox_roi2);
             this.Controls.Add(this.textBox_roi1);
             this.Controls.Add(this.button_ROI);
-            this.Controls.Add(this.button_開く);
+            this.Controls.Add(this.button_検査対象);
             this.Controls.Add(this.pictureBoxIpl1);
             this.Name = "メイン画面";
             this.Text = "Form1";
@@ -158,7 +195,7 @@
         #endregion
 
         private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl1;
-        private System.Windows.Forms.Button button_開く;
+        private System.Windows.Forms.Button button_検査対象;
         private System.Windows.Forms.Button button_ROI;
         private System.Windows.Forms.TextBox textBox_roi1;
         private System.Windows.Forms.TextBox textBox_roi2;
@@ -166,7 +203,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button_csv出力;
-        private System.Windows.Forms.Label label_平均と分散;
+        private System.Windows.Forms.Label label_roi_info;
+        private System.Windows.Forms.Button button_マスク画像;
+        private System.Windows.Forms.CheckBox checkBox_black;
+        private System.Windows.Forms.CheckBox checkBox_all;
     }
 }
 
