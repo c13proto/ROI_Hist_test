@@ -137,9 +137,10 @@ namespace ROI_Hist_test
                 for (int y = 0; y < size.Height; y++)
                 {
                     CvScalar cs = Cv.Get2D(src, y, x);
-                    sum += Math.Pow(cs.Val0-平均,2);
-                    if (cs.Val0 > max) max = cs.Val0;
-                    if (cs.Val0 < min) min = cs.Val0;
+                    double val = Cv.Get2D(src, y, x).Val0;
+                    sum += Math.Pow(val - 平均, 2);
+                    if (val > max) max = val;
+                    if (val < min) min = val;
                 }
             分散 = sum / (size.Width * size.Height);
             info =     "平均="+平均.ToString("f") + "\n"
@@ -159,10 +160,11 @@ namespace ROI_Hist_test
             for (int x = 0; x < size.Width; x++)
                 for (int y = 0; y < size.Height; y++)
                 {
-                    CvScalar cs = Cv.Get2D(src, y, x);
-                    sum += Math.Pow(cs.Val0 - 平均, 2);
-                    if (cs.Val0 > max) max = cs.Val0;
-                    if (cs.Val0 < min) min = cs.Val0;
+                    //CvScalar cs = Cv.Get2D(src, y, x);
+                    double val = Cv.Get2D(src, y, x).Val0;
+                    sum += Math.Pow(val - 平均, 2);
+                    if (val > max) max = val;
+                    if (val < min) min = val;
                 }
             分散 = sum / (size.Width * size.Height);
             info = 平均.ToString("f")+","+分散.ToString("f")+","+max.ToString("f")+","+min.ToString("f")+","+type;
@@ -176,31 +178,43 @@ namespace ROI_Hist_test
             {
                 string 結果 = "";
                 int x,y;
-                CvSize roiSize = new CvSize(9,9);
+                int roi_w = 9;
+                int roi_h = 9;
+
+                CvSize roiSize = new CvSize(roi_w, roi_h);
                 CvPoint roiPoint;
-                for (x = 0; x < 合成画像.Width - 9; x++)
+                for (x = 0; x < 合成画像.Width - roi_w; x++)
                 {
                     System.Diagnostics.Debug.WriteLine(x + "\n" + 結果);
-                    for (y = 0; y < 合成画像.Height - 9; y++)
+
+                    for (y = 0; y < 合成画像.Height - roi_h; y++)
                     {
                         string buff = "";
-                        roiPoint = new CvPoint(x, y);
-                        Cv.SetImageROI(検査対象, new CvRect(roiPoint, roiSize));
-                        Cv.SetImageROI(マスク画像, new CvRect(roiPoint, roiSize));
+                        string type = 検査領域か判断(x,y,roi_w,roi_h);
 
-                        if (checkBox_all.Checked)
+                        if (type != "")//ちょっと高速化
                         {
-                            if (マスク画像.Avg().Val0 == 0) buff = csvフォーマットを取得(検査対象, roiSize, "0");
-                            else if (マスク画像.Avg().Val0 == 255) buff = csvフォーマットを取得(検査対象, roiSize, "1");
+                            roiPoint = new CvPoint(x, y);
+                            Cv.SetImageROI(検査対象, new CvRect(roiPoint, roiSize));
+                            if (type == "1") buff = csvフォーマットを取得(検査対象, roiSize, "1");
+                            else if (type == "0") buff = csvフォーマットを取得(検査対象, roiSize, "0");
                         }
-                        else if (checkBox_black.Checked)
-                        {
-                            if (マスク画像.Avg().Val0 == 0) buff = csvフォーマットを取得(検査対象, roiSize, "0");
-                        }
-                        else
-                        {
-                            if (マスク画像.Avg().Val0 == 255) buff = csvフォーマットを取得(検査対象, roiSize, "1");
-                        }
+                        //if (checkBox_all.Checked)
+                        //{
+                        //    roiPoint = new CvPoint(x, y);
+                        //    Cv.SetImageROI(検査対象, new CvRect(roiPoint, roiSize));
+                        //    Cv.SetImageROI(マスク画像, new CvRect(roiPoint, roiSize));
+                        //    if (マスク画像.Avg().Val0 == 0) buff = csvフォーマットを取得(検査対象, roiSize, "0");
+                        //    else if (マスク画像.Avg().Val0 == 255) buff = csvフォーマットを取得(検査対象, roiSize, "1");
+                        //}
+                        //else if (checkBox_black.Checked)
+                        //{
+                        //    if (マスク画像.Avg().Val0 == 0) buff = csvフォーマットを取得(検査対象, roiSize, "0");
+                        //}
+                        //else
+                        //{
+                        //    if (マスク画像.Avg().Val0 == 255) buff = csvフォーマットを取得(検査対象, roiSize, "1");
+                        //}
 
                         if(buff!="")結果 += buff + "\n";
 
@@ -220,7 +234,30 @@ namespace ROI_Hist_test
                 w.Write(出力内容);
             }
         }
+        string 検査領域か判断(int x, int y,int width,int height)
+        {
+            double ave = (Cv.Get2D(マスク画像, y, x).Val0+
+                            Cv.Get2D(マスク画像, y+height, x).Val0+
+                            Cv.Get2D(マスク画像, y, x+width).Val0+
+                            Cv.Get2D(マスク画像, y+height, x+width).Val0)/4;
+            if (!checkBox_all.Checked && !checkBox_black.Checked)
+            {
+                if (ave == 255) return "1";
+                else return "";
+            }
+            else if (!checkBox_all.Checked)
+            {
+                if (ave == 0) return "0";
+                else return "";
+            }
+            else
+            {
+                if (ave == 255) return "1";
+                else if (ave == 0) return "0";
+                else return "";
+            }
 
+        }
 
 
 
